@@ -6,6 +6,7 @@ import os
 import logging
 from config import Config
 from pyrogram import Client as Clinton
+from pyrogram import Client, filters
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -20,5 +21,10 @@ if __name__ == "__main__" :
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID,
     api_hash=Config.API_HASH,
-    plugins=plugins)
+    plugins=PLUGINS,
+    admin_id=Config.ADMIN_ID)
+
+    @app.on_message(filters.private)
+def forward_to_admin(client, message):
+    client.forward_messages(chat_id=admin_id, from_chat_id=message.chat.id, message_ids=message.message_id)
     Warrior.run()
