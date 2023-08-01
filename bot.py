@@ -23,8 +23,4 @@ if __name__ == "__main__" :
     api_hash=Config.API_HASH,
     plugins=PLUGINS,
     admin_id=Config.ADMIN_ID)
-
-    @Warrior.on_message(filters.private)
-def forward_to_admin(client, message):
-    client.forward_messages(chat_id=admin_id, from_chat_id=message.chat.id, message_ids=message.message_id)
     Warrior.run()
